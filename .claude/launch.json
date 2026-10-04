@@ -17,6 +17,17 @@
     {
       "name": "api-running",
       "url": "http://localhost:3000"
+    },
+    {
+      "name": "landing",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": [
+        "run",
+        "--cwd",
+        "apps/landing",
+        "dev"
+      ],
+      "port": 3002
     }
   ]
 }

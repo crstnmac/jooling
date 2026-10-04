@@ -58,14 +58,11 @@
 	background: var(--color-void);
 	color: var(--color-snow);
 	font-family:
-		"Inter Variable", Inter, ui-sans-serif, system-ui, -apple-system,
+		"Timeless Sans", "Inter Variable", ui-sans-serif, system-ui, -apple-system,
 		BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-	font-feature-settings:
-		"ss01" on,
-		"ss03" on;
 	font-size: 14px;
 	font-weight: 400;
-	letter-spacing: -0.023em;
+	letter-spacing: -0.0115em;
 	line-height: 1.43;
 	-webkit-font-smoothing: antialiased;
 	overflow-x: clip;
@@ -165,7 +162,7 @@
 	border-radius: var(--radius-pill);
 	font-size: 14px;
 	font-weight: 450;
-	letter-spacing: -0.023em;
+	letter-spacing: -0.0115em;
 	white-space: nowrap;
 	transition:
 		background-color 0.15s ease,
@@ -228,7 +225,7 @@
 	border-radius: var(--radius-xs);
 	font-size: 10px;
 	font-weight: 500;
-	letter-spacing: -0.01em;
+	letter-spacing: -0.005em;
 	white-space: nowrap;
 	border: 0.5px solid currentColor;
 	background: transparent;
@@ -272,7 +269,7 @@
 	border-bottom: 0.5px solid var(--hairline);
 	color: var(--color-chalk);
 	font-size: 13px;
-	letter-spacing: -0.026em;
+	letter-spacing: -0.013em;
 	text-align: center;
 }
 .dk .dk-announcement p {
@@ -349,7 +346,7 @@
 	gap: 8px;
 	font-size: 16px;
 	font-weight: 500;
-	letter-spacing: -0.03em;
+	letter-spacing: -0.015em;
 	color: var(--color-snow);
 }
 .dk .dk-brand img {
@@ -449,7 +446,7 @@
 	color: var(--color-fog);
 	font-size: 12px;
 	font-weight: 500;
-	letter-spacing: -0.01em;
+	letter-spacing: -0.005em;
 }
 .dk .dk-eyebrow::before {
 	content: "";
@@ -464,12 +461,12 @@
 	font-size: 16px;
 	font-weight: 420;
 	line-height: 1.5;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.01em;
 }
 .dk h2 {
 	font-size: 42px;
 	line-height: 1.12;
-	letter-spacing: -0.021em;
+	letter-spacing: -0.0105em;
 	text-wrap: balance;
 }
 .dk .dk-section {
@@ -498,7 +495,7 @@
 	.dk h2 {
 		font-size: 32px;
 		line-height: 1.2;
-		letter-spacing: -0.02em;
+		letter-spacing: -0.01em;
 	}
 	.dk .dk-section {
 		padding-top: 72px;
@@ -552,7 +549,7 @@
 .dk .dk-hero h1 {
 	font-size: 64px;
 	line-height: 0.98;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.01em;
 	text-wrap: balance;
 }
 .dk .dk-hero-aside p {
@@ -560,7 +557,7 @@
 	font-size: 17px;
 	font-weight: 450;
 	line-height: 1.47;
-	letter-spacing: -0.03em;
+	letter-spacing: -0.015em;
 	margin-bottom: 24px;
 }
 .dk .dk-hero-actions {
@@ -619,7 +616,7 @@
 	color: var(--color-fog);
 	font-size: 15px;
 	font-weight: 440;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.01em;
 	transition: color 0.15s ease;
 }
 .dk .dk-industry-row a:hover {
@@ -660,7 +657,7 @@
 	margin-top: 20px;
 	font-size: 16px;
 	font-weight: 450;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.01em;
 }
 .dk .dk-cap p {
 	margin-top: 6px;
@@ -758,7 +755,7 @@
 .dk .dk-phone h3 {
 	margin: 2px 0 12px;
 	font-size: 20px;
-	letter-spacing: -0.03em;
+	letter-spacing: -0.015em;
 }
 
 @media (max-width: 860px) {
@@ -793,7 +790,7 @@
 .dk .dk-card-title {
 	font-size: 32px;
 	line-height: 1.2;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.01em;
 }
 .dk .dk-card .dk-lede {
 	margin-top: 12px;
@@ -838,7 +835,7 @@
 .dk .dk-opening-num {
 	font-size: 64px;
 	line-height: 0.94;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.01em;
 	font-variant-numeric: tabular-nums;
 }
 .dk .dk-opening-stat > span:last-child {
@@ -1024,7 +1021,7 @@
 .dk .dk-plan h3 {
 	font-size: 18px;
 	font-weight: 450;
-	letter-spacing: -0.034em;
+	letter-spacing: -0.017em;
 }
 .dk .dk-plan-tagline {
 	margin-top: 4px;
@@ -1040,7 +1037,7 @@
 .dk .dk-plan-amount {
 	font-size: 52px;
 	line-height: 1;
-	letter-spacing: -0.025em;
+	letter-spacing: -0.0125em;
 	font-variant-numeric: tabular-nums;
 }
 .dk .dk-plan-unit {
@@ -1112,7 +1109,7 @@
 	color: var(--color-snow);
 	font-size: 16px;
 	font-weight: 440;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.01em;
 	list-style: none;
 	cursor: pointer;
 }
@@ -1194,7 +1191,7 @@
 	margin-top: 20px;
 	font-size: 52px;
 	line-height: 1;
-	letter-spacing: -0.025em;
+	letter-spacing: -0.0125em;
 }
 .dk .dk-final-card .dk-lede {
 	max-width: 460px;
