@@ -122,16 +122,21 @@ export const ScheduleActionsMenu = memo(function ScheduleActionsMenu({
 
 	const autoAssign = useMutation({
 		mutationFn: () =>
-			api<{ assigned: number }>(
+			api<{ assigned: number; skippedPast: number }>(
 				`/v1/locations/${locationId}/schedules/${weekStart}/auto-assign`,
 				{ method: "POST", body: { teamId } },
 			),
 		onSuccess: async (result) => {
 			await invalidate();
+			const skipped =
+				result.skippedPast > 0
+					? ` ${result.skippedPast} past Shift${result.skippedPast === 1 ? "" : "s"} skipped.`
+					: "";
 			toast.success(
-				result.assigned === 0
+				(result.assigned === 0
 					? "No unassigned Shifts could be filled."
-					: `Assigned ${result.assigned} Shift${result.assigned === 1 ? "" : "s"}.`,
+					: `Assigned ${result.assigned} Shift${result.assigned === 1 ? "" : "s"}.`) +
+					skipped,
 			);
 		},
 		onError: (error) => toast.error((error as Error).message),

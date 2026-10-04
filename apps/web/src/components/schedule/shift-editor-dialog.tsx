@@ -76,6 +76,10 @@ import {
 	staffWindowOverlaps,
 	workerNeedsPositionApproval,
 } from "@/components/schedule/shift-form";
+import {
+	QuickAddPosition,
+	QuickInviteWorker,
+} from "@/components/schedule/quick-add";
 import { useInvalidateSchedule } from "@/components/schedule/use-schedule-invalidate";
 import { TimePicker } from "@/components/time-picker";
 import { api } from "@/lib/api";
@@ -94,6 +98,7 @@ import { addDays } from "@/lib/schedule-calendar";
 import { shiftOverlapsTimeOff } from "@/lib/schedule-timeoff";
 import { datetimeLocalToIso, isoToDatetimeLocal } from "@/lib/time";
 import { useDisplayPrefs } from "@/lib/use-display-prefs";
+import { hasCapability } from "@/lib/privileges";
 import { useWorkplace } from "@/lib/use-workplace";
 
 export interface ShiftMoveRequest {
@@ -145,7 +150,10 @@ export const ShiftEditorDialog = memo(function ShiftEditorDialog({
 	movePending: boolean;
 	onConfirmMove: (request: ShiftMoveRequest) => void;
 }) {
-	const { workplace } = useWorkplace();
+	const { workplace, kind, privileges } = useWorkplace();
+	const subject = kind ? { kind, privileges: privileges ?? null } : null;
+	const canAddPositions = hasCapability(subject, "settings.manage");
+	const canInviteWorkers = hasCapability(subject, "workers.manage");
 	const { formatMinute } = useDisplayPrefs();
 	const posthog = usePostHog();
 	const queryClient = useQueryClient();
@@ -826,6 +834,16 @@ export const ShiftEditorDialog = memo(function ShiftEditorDialog({
 													)}
 												</SelectContent>
 											</Select>
+											{canAddPositions ? (
+												<QuickAddPosition
+													onCreated={async (positionId) => {
+														await invalidate();
+														setForm((current) =>
+															current ? { ...current, positionId } : current,
+														);
+													}}
+												/>
+											) : null}
 											{positionNeedsApproval ? (
 												<Alert role="status">
 													<UserPlusIcon />
@@ -1016,6 +1034,12 @@ export const ShiftEditorDialog = memo(function ShiftEditorDialog({
 													) : null}
 												</>
 											)}
+											{canInviteWorkers ? (
+												<QuickInviteWorker
+													locationId={locationId}
+													positionId={form.positionId}
+												/>
+											) : null}
 										</div>
 
 										<span className="pt-2 font-medium text-muted-foreground text-xs uppercase tracking-wide">
