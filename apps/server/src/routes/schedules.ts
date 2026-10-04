@@ -2033,7 +2033,11 @@ export const schedulesRoutes = new Elysia({
 				.select()
 				.from(shifts)
 				.where(eq(shifts.scheduleId, schedule.id));
-			const unassigned = draft.filter((shift) => shift.employmentId === null);
+			// Shifts already started or finished are never auto-filled.
+			const now = new Date();
+			const openShifts = draft.filter((shift) => shift.employmentId === null);
+			const unassigned = openShifts.filter((shift) => shift.startsAt > now);
+			const skippedPast = openShifts.length - unassigned.length;
 			const workers = await db
 				.select()
 				.from(employments)
@@ -2075,7 +2079,7 @@ export const schedulesRoutes = new Elysia({
 					break;
 				}
 			}
-			return { assigned };
+			return { assigned, skippedPast };
 		},
 		{
 			headers: t.Object(

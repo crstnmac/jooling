@@ -505,12 +505,13 @@ export function registerOpsTests(getContext: () => Context) {
 	test("auto-assign fills unassigned draft Shifts from eligible Workers", async () => {
 		const { database: d, app, token } = getContext();
 		const seed = await seedWorkplace(d, "Assign Cafe");
+		const upcoming = new Date(Date.now() + 24 * 60 * 60 * 1000);
 		await d.db.insert(d.shifts).values({
 			scheduleId: seed.schedule.id,
 			employmentId: null,
 			positionId: seed.position.id,
-			startsAt: new Date("2026-09-08T16:00:00.000Z"),
-			endsAt: new Date("2026-09-08T22:00:00.000Z"),
+			startsAt: upcoming,
+			endsAt: new Date(upcoming.getTime() + 6 * 60 * 60 * 1000),
 		});
 		const access = await token(seed.managerProfileId, seed.managerEmail);
 		const response = await app.handle(
@@ -529,6 +530,39 @@ export function registerOpsTests(getContext: () => Context) {
 			.from(d.shifts)
 			.where(eq(d.shifts.scheduleId, seed.schedule.id));
 		expect(shift?.employmentId).toBe(seed.worker.id);
+	});
+
+	test("auto-assign skips Shifts that have already started", async () => {
+		const { database: d, app, token } = getContext();
+		const seed = await seedWorkplace(d, "Past Assign Cafe");
+		const past = new Date(Date.now() - 24 * 60 * 60 * 1000);
+		await d.db.insert(d.shifts).values({
+			scheduleId: seed.schedule.id,
+			employmentId: null,
+			positionId: seed.position.id,
+			startsAt: past,
+			endsAt: new Date(past.getTime() + 6 * 60 * 60 * 1000),
+		});
+		const access = await token(seed.managerProfileId, seed.managerEmail);
+		const response = await app.handle(
+			new Request(
+				`http://localhost/v1/locations/${seed.location.id}/schedules/2026-09-07/auto-assign`,
+				{
+					method: "POST",
+					headers: { authorization: `Bearer ${access}` },
+				},
+			),
+		);
+		expect(response.status).toBe(200);
+		expect(await response.json()).toMatchObject({
+			assigned: 0,
+			skippedPast: 1,
+		});
+		const [shift] = await d.db
+			.select()
+			.from(d.shifts)
+			.where(eq(d.shifts.scheduleId, seed.schedule.id));
+		expect(shift?.employmentId).toBeNull();
 	});
 
 	test("calendar month lists Shifts without creating extra Schedules", async () => {
