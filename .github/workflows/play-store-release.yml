@@ -67,7 +67,7 @@ jobs:
         working-directory: apps/native
         run: eas build --platform android --profile production --non-interactive --wait --json > "$RUNNER_TEMP/eas-build.json"
 
-      - name: Submit tagged build to Google Play
+      - name: Submit tagged build to Google Play (draft)
         working-directory: apps/native
         run: |
           BUILD_ID=$(node -e '
@@ -80,4 +80,4 @@ jobs:
             }
             process.stdout.write(build.id);
           ')
-          eas submit --platform android --profile production --id "$BUILD_ID" --non-interactive --wait
+          eas submit --platform android --profile production-draft --id "$BUILD_ID" --non-interactive --wait
