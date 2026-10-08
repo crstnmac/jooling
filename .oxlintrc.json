@@ -1,4 +1,5 @@
 {
+	"ignorePatterns": [".agents/skills/**", ".claude/skills/**"],
 	"jsPlugins": ["@shadcn/lint"],
 	"settings": {
 		"shadcn": {
