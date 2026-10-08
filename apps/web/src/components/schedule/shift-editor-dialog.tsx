@@ -68,6 +68,10 @@ import { DatePicker } from "@/components/date-picker";
 import { formatDayLabel, weekdayShort } from "@/components/schedule/format";
 import { PositionApprovalDialog } from "@/components/schedule/position-approval-dialog";
 import {
+	QuickAddPosition,
+	QuickInviteWorker,
+} from "@/components/schedule/quick-add";
+import {
 	emptyForm,
 	type PositionApproval,
 	positionsForWorker,
@@ -76,13 +80,10 @@ import {
 	staffWindowOverlaps,
 	workerNeedsPositionApproval,
 } from "@/components/schedule/shift-form";
-import {
-	QuickAddPosition,
-	QuickInviteWorker,
-} from "@/components/schedule/quick-add";
 import { useInvalidateSchedule } from "@/components/schedule/use-schedule-invalidate";
 import { TimePicker } from "@/components/time-picker";
 import { api } from "@/lib/api";
+import { hasCapability } from "@/lib/privileges";
 import type {
 	ScheduleResponse,
 	ScheduleShiftDto,
@@ -98,7 +99,6 @@ import { addDays } from "@/lib/schedule-calendar";
 import { shiftOverlapsTimeOff } from "@/lib/schedule-timeoff";
 import { datetimeLocalToIso, isoToDatetimeLocal } from "@/lib/time";
 import { useDisplayPrefs } from "@/lib/use-display-prefs";
-import { hasCapability } from "@/lib/privileges";
 import { useWorkplace } from "@/lib/use-workplace";
 
 export interface ShiftMoveRequest {

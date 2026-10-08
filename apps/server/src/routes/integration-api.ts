@@ -1332,10 +1332,11 @@ export const integrationApiRoutes = new Elysia({
 					row.location.timezone,
 				);
 				const daily =
-					dailyMinutesByEmployment.get(employmentId) ?? new Array(7).fill(0);
+					dailyMinutesByEmployment.get(employmentId) ??
+					Array.from({ length: 7 }, () => 0);
 				for (const [dateKey, minutes] of split) {
 					const index = weekDates.indexOf(dateKey);
-					if (index >= 0) daily[index] += minutes;
+					if (index >= 0) daily[index] = (daily[index] ?? 0) + minutes;
 					minutesByDate.set(
 						dateKey,
 						(minutesByDate.get(dateKey) ?? 0) + minutes,

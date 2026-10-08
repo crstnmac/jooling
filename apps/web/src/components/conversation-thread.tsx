@@ -226,10 +226,7 @@ const MessageRow = memo(function MessageRow({
 	showIdentity: boolean;
 }) {
 	return (
-		<Message
-			align={mine ? "end" : "start"}
-			className="motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-1 motion-safe:animate-in motion-safe:duration-150"
-		>
+		<Message align={mine ? "end" : "start"}>
 			{!mine ? (
 				showIdentity ? (
 					<MessageAvatar>

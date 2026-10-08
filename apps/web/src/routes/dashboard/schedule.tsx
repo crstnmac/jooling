@@ -796,22 +796,16 @@ function SchedulePage() {
 			}),
 		[visibleDays, days, todayKey],
 	);
-	const gridColumnsStyle = useMemo(
-		() =>
-			({
-				"--schedule-grid-columns":
-					gridDensity === "compact"
-						? `200px repeat(${visibleDays.length}, minmax(118px, 1fr))`
-						: `220px repeat(${visibleDays.length}, minmax(132px, 1fr))`,
-				"--schedule-grid-min-width":
-					visibleDays.length === 1
-						? "auto"
-						: gridDensity === "compact"
-							? "1032px"
-							: "1144px",
-			}) as CSSProperties,
-		[gridDensity, visibleDays.length],
-	);
+	const gridColumns =
+		gridDensity === "compact"
+			? `200px repeat(${visibleDays.length}, minmax(118px, 1fr))`
+			: `220px repeat(${visibleDays.length}, minmax(132px, 1fr))`;
+	const gridMinWidth =
+		visibleDays.length === 1
+			? "auto"
+			: gridDensity === "compact"
+				? "1032px"
+				: "1144px";
 
 	// The editor dialog owns its open/draft state; everything else reaches it
 	// through these stable, identity-preserving callbacks.
@@ -1107,7 +1101,12 @@ function SchedulePage() {
 								<div className="schedule-grid-scroll min-h-0 min-w-0 flex-1 overflow-auto overscroll-none">
 									<div
 										className="grid min-w-(--schedule-grid-min-width) grid-cols-(--schedule-grid-columns)"
-										style={gridColumnsStyle}
+										style={
+											{
+												"--schedule-grid-columns": gridColumns,
+												"--schedule-grid-min-width": gridMinWidth,
+											} as CSSProperties
+										}
 									>
 										<ScheduleStaffCorner />
 										{visibleDayInfos.map((day) => (

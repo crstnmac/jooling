@@ -265,11 +265,11 @@ const MobileTabBar = memo(function MobileTabBar({
 	onMore: () => void;
 }) {
 	const tab =
-		"flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 px-1 py-2 font-medium text-[0.6875rem] outline-none transition-colors focus-visible:bg-muted";
+		"flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 px-1 py-2 font-medium text-xs outline-none transition-colors focus-visible:bg-muted";
 	return (
 		<nav
 			aria-label="Primary"
-			className="flex shrink-0 border-t bg-background pb-[env(safe-area-inset-bottom)] md:hidden print:hidden"
+			className="flex shrink-0 border-t bg-background pb-safe md:hidden print:hidden"
 		>
 			{items.map((item) => {
 				const active = isActive(item, pathname);

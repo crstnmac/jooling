@@ -233,3 +233,7 @@ main :is([data-slot="badge"], [data-slot="table-head"]) {
 		transition: box-shadow 150ms ease-out;
 	}
 }
+
+@utility pb-safe {
+	padding-bottom: env(safe-area-inset-bottom);
+}
